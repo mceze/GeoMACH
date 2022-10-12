@@ -6,9 +6,10 @@ John Hwang, July 2014
 from __future__ import division
 import numpy
 
-from GeoMACH.PGM import PGMlib
+# import GeoMACH.PGM.PGMlib as PGMlib
 from GeoMACH.PGM.core.PGMobject import PGMobject
-
+import GeoMACH.PGM as PGM
+from GeoMACH.PGM import PGMlib
 
 class PGMparameter(PGMobject):
 

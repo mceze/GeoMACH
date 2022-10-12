@@ -1,6 +1,1 @@
-from BSEmodel import BSEmodel
-from BSEvec import BSEvec
-try:
-    import BSElib
-except ImportError:
-    BSElib = None
+import GeoMACH.BSE.BSElib as BSElib

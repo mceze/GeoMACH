@@ -17,8 +17,8 @@ class test(PGMconfiguration):
 	#DEFINE COMPONENTS
 	def _define_comps(self):
 		self.comps['fuse'] = PGMbody(num_x=12, num_y=4, num_z=4) #Creates the fuselage component with 12 surfaces on the longitudinal direction, 4 surfaces on y direction and 4 surfaces on z direction
-	        self.comps['cone_f'] = PGMcone(self, 'fuse', 'front',2) #Adds a cone to close the front of the fuselage. The last parameter controls how the cone uses the tangential component of the primary component (fuselage) to generate the junction
-	        self.comps['cone_r'] = PGMcone(self, 'fuse', 'rear',0.1) #Adds a cone to close the rear of the fuselage. The last parameter controls how the cone uses the tangential component of the primary component (fuselage) to generate the junction
+		self.comps['cone_f'] = PGMcone(self, 'fuse', 'front',2) #Adds a cone to close the front of the fuselage. The last parameter controls how the cone uses the tangential component of the primary component (fuselage) to generate the junction
+		self.comps['cone_r'] = PGMcone(self, 'fuse', 'rear',0.1) #Adds a cone to close the rear of the fuselage. The last parameter controls how the cone uses the tangential component of the primary component (fuselage) to generate the junction
 
 		self.comps['wing_l'] = PGMwing(num_x=3,num_z=4,left_closed=True) #Creates the left wing component. We only need to close the left tip
 		self.comps['wingtip_l'] = PGMtip(self, 'wing_l', 'left', 0.1) #Creates the left wing tip
@@ -117,3 +117,4 @@ if __name__ == '__main__':
 	#EXPORT GEOMETRY
 	bse.vec['pt_str']._hidden[:] = False #Show both sides of the aircraft
 	bse.vec['pt_str'].export_tec_str()
+	bse.vec['cp_str'].export_IGES()

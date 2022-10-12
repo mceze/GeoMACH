@@ -61,7 +61,7 @@ class PGMshell(PGMprimitive):
     def assemble_sizes(self, bse):
         super(PGMshell, self).assemble_sizes(bse)
 
-        num = self.faces.values()[0]._num_cp_total['v']
+        num = list(self.faces.values())[0]._num_cp_total['v']
         props = self.props
         props['thk'].assemble_sizes(num, 3)
 

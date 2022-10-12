@@ -4,8 +4,8 @@ import time
 import scipy.sparse
 from collections import OrderedDict
 
-from GeoMACH.PSM import PSMlib, QUADlib, CDTlib
-from QUAD import QUAD
+from GeoMACH.PSM import *
+from GeoMACH.PSM.QUAD import QUAD
 
 
 class Airframe(object):
@@ -260,7 +260,7 @@ class Airframe(object):
         nmem = self.nmem
 
         for imem in range(nmem):
-            if len(self.members[imem]) is 2:
+            if len(self.members[imem]) == 2:
                 self.members[imem].extend([[[-1,-1,-1] for j in range(5)] for i in range(2)])
         members = numpy.array(self.members, order='F')
         membersInt, membersFlt = PSMlib.importmembers(nmem, members)
@@ -289,7 +289,7 @@ class Airframe(object):
             W = scipy.sparse.csr_matrix((Wa[:,src],(linW,linW)))
             for surf in range(nsurf):
                 npts = PSMlib.countpreviewmembers(surf+1, src+1, nmem, self.membersFlt)
-                if npts is not 0:
+                if npts != 0:
                     inds, P, Q = PSMlib.computepreviewmemberproj(surf+1, src+1, nmem, npts, self.membersFlt)
                     Ta = numpy.ones(npts)
                     Ti = inds - 1
@@ -446,7 +446,7 @@ class Airframe(object):
                 nedge = edges.shape[0]
                 ni, nj = face._num_surf['u'], face._num_surf['v']
                 idims, jdims = self.faceDims[comp._name][face._name]
-                print 'Computing skin elements:', comp._name, face._name
+                print('Computing skin elements:', comp._name, face._name)
                 for i in range(ni):
                     for j in range(nj):
                         surf = face._surf_indices[i,j]
@@ -454,7 +454,7 @@ class Airframe(object):
                             nedge1 = PSMlib.countsurfaceedges(nvert, nedge, idims[i], idims[i+1], jdims[j], jdims[j+1], verts, edges)
                             edges1 = PSMlib.computesurfaceedges(nvert, nedge, nedge1, idims[i], idims[i+1], jdims[j], jdims[j+1], verts, edges)
 
-                            print comp._name, face._name, i, j
+                            print(comp._name, face._name, i, j)
                             quad.importEdges(edges1)
 
                             output = False
@@ -519,7 +519,7 @@ class Airframe(object):
         ucoord0 = []
         vcoord0 = []
         for imem in range(nmem):
-            print 'Computing internal members:', self.memberNames[imem]
+            print('Computing internal members:', self.memberNames[imem])
             edges, edge_group = PSMlib.computememberedges(imem+1, nmem, self.mem_group)
             quad.importEdges(edges)
             verts, edges = quad.verts, quad.edges
@@ -554,7 +554,7 @@ class Airframe(object):
             W = scipy.sparse.csr_matrix((nodesFlt[:,src,0],(linW,linW)))
             for surf in range(nsurf):
                 npts = PSMlib.countmembers(surf+1, src+1, nnode, nodesInt)
-                if npts is not 0:
+                if npts != 0:
                     inds, P, Q = PSMlib.computememberproj(surf+1, src+1, nnode, npts, nodesInt, nodesFlt)
                     Ta = numpy.ones(npts)
                     Ti = inds - 1

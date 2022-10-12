@@ -12,7 +12,7 @@ import numpy
 class Conventional(PGMconfiguration):
 
     def _define_comps(self):
-        self.comps['fuse'] = PGMbody(num_x=12, num_y=4, num_z=2) #num_x is the number of surfacees
+        self.comps['fuse'] = PGMbody(num_x=12, num_y=4, num_z=2) #num_x == the number of surfacees
         self.comps['lwing'] = PGMwing(num_x=4, num_z=4, left_closed=True)
         self.comps['rwing'] = PGMwing(num_x=4, num_z=4, right_closed=True)
         self.comps['lpylon'] = PGMwing()
@@ -51,15 +51,15 @@ class Conventional(PGMconfiguration):
         lwing['pos'].params[''] = PGMparameter(1, 3)
         lwing['scl'].params[''] = PGMparameter(3, 1, pos_u=[0,0.35,1.0])
         lwing['pos'].params['lin'] = PGMparameter(2, 3)
-	lwing['shY','upp'].params[''] = PGMparameter(10, 6, order_u=4, order_v=4)
-	lwing['shY','low'].params[''] = PGMparameter(10, 6, order_u=4, order_v=4)
+        lwing['shY','upp'].params[''] = PGMparameter(10, 6, order_u=4, order_v=4)
+        lwing['shY','low'].params[''] = PGMparameter(10, 6, order_u=4, order_v=4)
 
         rwing = self.comps['rwing'].props
         rwing['pos'].params[''] = PGMparameter(1, 3)
         rwing['scl'].params[''] = PGMparameter(3, 1, pos_u=[0,0.65,1.0])
         rwing['pos'].params['lin'] = PGMparameter(2, 3)
-	rwing['shY','upp'].params[''] = PGMparameter(10, 6, order_u=4, order_v=4)
-	rwing['shY','low'].params[''] = PGMparameter(10, 6, order_u=4, order_v=4)
+        rwing['shY','upp'].params[''] = PGMparameter(10, 6, order_u=4, order_v=4)
+        rwing['shY','low'].params[''] = PGMparameter(10, 6, order_u=4, order_v=4)
 
         lpylon = self.comps['lpylon'].props
         lpylon['pos'].params[''] = PGMparameter(1, 3)
@@ -104,14 +104,14 @@ class Conventional(PGMconfiguration):
         dvs['span'] = PGMdv((1), 23.3).set_identity_param('lwing', 'pos', 'lin', (1,2))
         dvs['mid_chord'] = PGMdv((1), 4.5).set_identity_param('lwing', 'scl', '', (1,0))
         dvs['tip_chord'] = PGMdv((1), 1.2).set_identity_param('lwing', 'scl', '', (2,0))
-	dvs['shape_wing_upp'] = PGMdv((10,6)).set_identity_param('lwing', ('shY', 'upp'), '')
-	dvs['shape_wing_low'] = PGMdv((10,6)).set_identity_param('lwing', ('shY', 'low'), '')
-	dvs['lwing_fuse_normal'] = PGMdv((7,7)).set_identity_param('lwing_fuse', ('shN', ''), '')
+        dvs['shape_wing_upp'] = PGMdv((10,6)).set_identity_param('lwing', ('shY', 'upp'), '')
+        dvs['shape_wing_low'] = PGMdv((10,6)).set_identity_param('lwing', ('shY', 'low'), '')
+        dvs['lwing_fuse_normal'] = PGMdv((7,7)).set_identity_param('lwing_fuse', ('shN', ''), '')
 
     def _compute_params(self):
 
         fuse = self.comps['fuse'].props
-#	fuse['pos'].params[''].data[:,:] = [[0,0,0],[50,0,0]]
+        #	fuse['pos'].params[''].data[:,:] = [[0,0,0],[50,0,0]]
         fuse['pos'].params[''].val([[0,0,0],[50,0,0]])
         fuse['nor'].params[''].val([1.0])
         fuse['scl'].params[''].val([2.6])
@@ -190,7 +190,7 @@ class Conventional(PGMconfiguration):
                 afm.addVertFlip('Mrw_1:'+str(i)+':'+str(j),'rwing',[idims[i],1-jdims[j]],[idims[i+1],1-jdims[j]])
         for i in range(idims.shape[0]):
             for j in range(jdims.shape[0]-1):
-                if i is 0 or i is idims.shape[0]-1:
+                if i == 0 or i == idims.shape[0]-1:
                     afm.addVertFlip('Mlw_2:'+str(i)+':'+str(j),'lwing',[idims[i],jdims[j]],[idims[i],jdims[j+1]])
                     afm.addVertFlip('Mrw_2:'+str(i)+':'+str(j),'rwing',[idims[i],1-jdims[j]],[idims[i],1-jdims[j+1]])
                 else:
@@ -208,7 +208,7 @@ class Conventional(PGMconfiguration):
         idims = numpy.linspace(0.45,0.85,7)
         jdims = numpy.linspace(0,1,16)
         for i in range(idims.shape[0]):
-            if i is 0 or i is idims.shape[0]-1:
+            if i == 0 or i == idims.shape[0]-1:
                 afm.addCtrVert('Mcw_2:'+str(i)+':'+str(j),'lwing','rwing',idims[i])
             else:
                 afm.addCtrVert('Mcw_2a:'+str(i)+':'+str(j),'lwing','rwing',idims[i],w=[1,0.85])

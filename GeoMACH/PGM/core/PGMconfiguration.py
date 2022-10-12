@@ -6,7 +6,7 @@ John Hwang, July 2014
 
 from __future__ import division
 import numpy
-import time
+
 import scipy.sparse
 from collections import OrderedDict
 
@@ -202,9 +202,9 @@ class PGMconfiguration(object):
         vecs['cp_coons'] = PGMvec('cp_coons', faces, comps)
         vecs['df_surf'] = PGMvec('df_surf', surfs, faces)
 
-        for ind in xrange(6):
-            vec1 = vecs.values()[ind]
-            vec2 = vecs.values()[ind + 1]
+        for ind in range(6):
+            vec1 = list(vecs.values())[ind]
+            vec2 = list(vecs.values())[ind + 1]
             vec2.set_col_size(vec1.get_size())
 
         jacs = self._jacs
@@ -230,7 +230,7 @@ class PGMconfiguration(object):
             lins = numpy.linspace(0, num-1, num).astype(int)
 
             irow2 += num
-            for dim in xrange(3):
+            for dim in range(3):
                 icol2 += num
 
                 rows[icol1:icol2] = dim*size/3 + irow1 + lins
@@ -273,7 +273,7 @@ class PGMconfiguration(object):
             comp_num += 1
         self._set_bspline_options()
 
-        for isurf in xrange(len(surfs_list)):
+        for isurf in range(len(surfs_list)):
             surf = surfs_list[isurf]
             if numpy.average(surf[:, :, 2]) < 0:
                 bse.hidden[isurf] = True

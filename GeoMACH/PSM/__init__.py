@@ -1,1 +1,1 @@
-from airframe import Airframe
+from GeoMACH.PSM.airframe import Airframe
